@@ -15,6 +15,39 @@ router.get('/polls', function(req, res, next) {
     }
     res.json(polls);
   })
+});
+
+router.post('/polls', function(req, res, next) {
+  var poll = new Poll(req.body);
+
+  poll.save(function(err, poll) {
+    if (err) {
+      return next(err);
+    }
+
+    res.json(poll);
+  })
+});
+
+router.param('poll', function(req, res, next, id) {
+  var query = Poll.findById(id);
+
+  query.exec(function(err, poll) {
+    if (err) {
+      return next(err);
+    }
+
+    if (!poll) {
+      return next(new Error('cannot find poll'));
+    }
+
+    req.poll = poll;
+    return next();
+  })
+});
+
+router.get('/polls/:poll', function(req, res) {
+  res.json(req.poll);
 })
 
 module.exports = router;
