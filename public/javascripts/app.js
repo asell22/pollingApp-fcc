@@ -36,6 +36,11 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     return $http.get('/polls').success(function(data) {
       angular.copy(data, pollsObject.polls)
     })
+  };
+  pollsObject.create = function(poll) {
+    return $http.post('/polls', poll).success(function(data) {
+      pollsObject.polls.push(data);
+    })
   }
 
   return pollsObject;
@@ -109,7 +114,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       });
 
       if ($scope.pollForm.$valid) {
-        polls.polls.push(
+        polls.create(
           {title: self.name, user: self.username, data: self.options}
         )
 
