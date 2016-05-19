@@ -48,6 +48,18 @@ router.param('poll', function(req, res, next, id) {
 
 router.get('/polls/:poll', function(req, res) {
   res.json(req.poll);
-})
+});
+
+router.put('/polls/:poll/:index', function(req, res, next) {
+  var index = req.params.index;
+  Poll.findById(req.poll, function(err, poll) {
+    if (err) res.send(err)
+    poll.options[index].totalVotes++;
+    poll.save(function(err) {
+      if (err) res.send(err);
+      res.send(poll);
+    })
+  })
+});
 
 module.exports = router;

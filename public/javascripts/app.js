@@ -51,49 +51,15 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     return $http.get('/polls/' + id).then(function(res) {
       return res.data;
     })
+  };
+  pollsObject.vote = function(id, index) {
+    return $http.put('/polls/' + id + '/' + index).success(function(data) {
+      return data;
+    })
   }
 
   return pollsObject;
 })
-// .directive('hcPieChart', function() {
-//   return {
-//     restrict: 'E',
-//     replace: true,
-//     template: '<div></div>',
-//     scope: {
-//       title: '@',
-//       data: '='
-//     },
-//     controller: function($scope, polls, $stateParams) {
-//       $scope.increment = function(option) {
-//         option.totalVotes++;
-//       }
-//     },
-//     link: function(scope, element) {
-//       Highcharts.chart(element[0], {
-//         chart: {
-//           type: 'pie'
-//         },
-//         title: {
-//           text: scope.title
-//         },
-//         plotOptions: {
-//           pie: {
-//             allowPointSelect: true,
-//             cursor: 'pointer',
-//             dataLabels: {
-//               enabled: true,
-//               format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-//             }
-//           }
-//         },
-//         series: [{
-//           data: scope.data
-//         }]
-//       })
-//     }
-//   }
-// })
 .controller('mainCtrl', function($scope, polls) {
   var self = this;
   self.title = "Awesome Voting App";
@@ -141,11 +107,8 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 .controller('pollCtrl', function($scope, polls, poll) {
 
   $scope.poll = poll;
-  console.log($scope.poll);
   var title = $scope.poll.title;
   var data = $scope.poll.options;
-  // console.log(title);
-  // console.log(data);
   $scope.pieData = [];
   angular.forEach(data, function(val) {
     $scope.pieData.push([
@@ -180,34 +143,14 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     },
     loading: false
   }
-  console.log($scope.poll);
-  console.log($scope.chartConfig.series[0].data);
+
   $scope.increment = function(option) {
+    console.log($scope.poll);
     var data = $scope.chartConfig.series[0].data;
     var index = this.$index;
     data[index][1]++;
     option.totalVotes++;
+    polls.vote(poll._id, index);
   }
-  // $scope.$on('addData', function() {
-  //   angular.forEach($scope.poll.options, function(val) {
-  //     $scope.pieData.push({
-  //       name: val.name,
-  //       y: val.totalVotes
-  //     })
-  //   })
-  // })
-  // var pieData = function() {
-  //   angular.forEach($scope.poll.options, function(val) {
-  //     $scope.pieData.push(
-  //       {name: val.name, y: val.totalVotes}
-  //     )
-  //   })
-  // }
 
-
-
-  // $scope.pieData = [];
-  //
-  // var options = $scope.poll.options;
-  // $scope.$emit('addData');
 })
