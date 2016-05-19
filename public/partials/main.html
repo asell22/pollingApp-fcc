@@ -1,5 +1,5 @@
 
 <ul>
-  <li ng-repeat="poll in main.polls"><a href="#/polls/{{$index}}">{{poll.title}} by {{poll.user}}</a></li>
+  <li ng-repeat="poll in main.polls"><a href="#/polls/{{poll._id}}">{{poll.title}} by {{poll.user}}</a></li>
 </ul>
 <button class="btn btn-primary" ui-sref="form">Add New Poll</button>

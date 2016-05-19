@@ -24,7 +24,12 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       .state('poll', {
         url: '/polls/{id}',
         templateUrl: 'partials/poll.html',
-        controller: 'pollCtrl'
+        controller: 'pollCtrl',
+        resolve: {
+          poll: ['$stateParams', 'polls', function($stateParams, polls) {
+            return polls.getPoll($stateParams.id);
+          }]
+        }
       })
       $urlRouterProvider.otherwise('/');
   }
@@ -41,49 +46,54 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     return $http.post('/polls', poll).success(function(data) {
       pollsObject.polls.push(data);
     })
+  };
+  pollsObject.getPoll = function(id) {
+    return $http.get('/polls/' + id).then(function(res) {
+      return res.data;
+    })
   }
 
   return pollsObject;
 })
-.directive('hcPieChart', function() {
-  return {
-    restrict: 'E',
-    replace: true,
-    template: '<div></div>',
-    scope: {
-      title: '@',
-      data: '='
-    },
-    controller: function($scope, polls, $stateParams) {
-      $scope.increment = function(option) {
-        option.totalVotes++;
-      }
-    },
-    link: function(scope, element) {
-      Highcharts.chart(element[0], {
-        chart: {
-          type: 'pie'
-        },
-        title: {
-          text: scope.title
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            }
-          }
-        },
-        series: [{
-          data: scope.data
-        }]
-      })
-    }
-  }
-})
+// .directive('hcPieChart', function() {
+//   return {
+//     restrict: 'E',
+//     replace: true,
+//     template: '<div></div>',
+//     scope: {
+//       title: '@',
+//       data: '='
+//     },
+//     controller: function($scope, polls, $stateParams) {
+//       $scope.increment = function(option) {
+//         option.totalVotes++;
+//       }
+//     },
+//     link: function(scope, element) {
+//       Highcharts.chart(element[0], {
+//         chart: {
+//           type: 'pie'
+//         },
+//         title: {
+//           text: scope.title
+//         },
+//         plotOptions: {
+//           pie: {
+//             allowPointSelect: true,
+//             cursor: 'pointer',
+//             dataLabels: {
+//               enabled: true,
+//               format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+//             }
+//           }
+//         },
+//         series: [{
+//           data: scope.data
+//         }]
+//       })
+//     }
+//   }
+// })
 .controller('mainCtrl', function($scope, polls) {
   var self = this;
   self.title = "Awesome Voting App";
@@ -101,7 +111,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     self.optionObj = {
       name: self.option,
       count: self.optionCount,
-      totalVotes: Math.floor(Math.random() * 30) + 1
+      totalVotes: 0
     }
     self.options.push(self.optionObj);
     self.option = '';
@@ -115,7 +125,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 
       if ($scope.pollForm.$valid) {
         polls.create(
-          {title: self.name, user: self.username, data: self.options}
+          {title: self.name, user: self.username, options: self.options}
         )
 
         $scope.pollForm.$setUntouched();
@@ -128,8 +138,10 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     }
   }
 })
-.controller('pollCtrl', function($scope, polls, $stateParams) {
-  $scope.poll = polls.polls[$stateParams.id];
+.controller('pollCtrl', function($scope, polls, poll) {
+
+  $scope.poll = poll;
+  console.log($scope.poll);
   var title = $scope.poll.title;
   var data = $scope.poll.options;
   // console.log(title);
