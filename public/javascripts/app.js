@@ -8,7 +8,12 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
         url: '/',
         templateUrl: 'partials/main.html',
         controller: 'mainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        resolve: {
+          pollPromise: ['polls', function(polls) {
+            return polls.getPolls();
+          }]
+        }
       })
       .state('form', {
         url: '/new',
@@ -24,13 +29,13 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       $urlRouterProvider.otherwise('/');
   }
 ])
-.factory('polls', function() {
-  var pollsObject = {
-    polls : [
-      { title: 'poll1', user: 'user1', options: [{count: 1, name: "option 1", totalVotes: 4},{count: 2, name: "option 2", totalVotes: 3}, {count: 3, name: "option 3", totalVotes: 12}] },
-      { title: 'poll2', user: 'user2', options: [{count: 1, name: "option 1", totalVotes: 13},{count: 2, name: "option 2", totalVotes: 2}] },
-      { title: 'poll3', user: 'user3', options: [{count: 1, name: "option 1", totalVotes: 2},{count: 2, name: "option 2", totalVotes: 15}]}
-    ]
+.factory('polls', function($http) {
+  var pollsObject = {};
+  pollsObject.polls = [];
+  pollsObject.getPolls = function() {
+    return $http.get('/polls').success(function(data) {
+      angular.copy(data, pollsObject.polls)
+    })
   }
 
   return pollsObject;
