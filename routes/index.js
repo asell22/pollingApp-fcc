@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
+var passportTwitter = require('../auth/twitter');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,7 +11,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
   res.send('Go back and register!');
-})
+});
+
+router.get('/auth/twitter', passportTwitter.authenticate('twitter'));
+
+router.get('/auth/twitter/callback',
+  passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication
+    res.json(req.user);
+  });
 
 router.get('/polls', function(req, res, next) {
   Poll.find(function(err, polls) {
