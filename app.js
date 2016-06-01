@@ -7,15 +7,12 @@ var bodyParser = require('body-parser');
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
 var mongoose = require('mongoose');
 var passport = require('passport');
-
-
-require('./config/passport');
+var session = require('express-session');
 
 mongoose.connect('mongodb://localhost/polls');
 
@@ -31,15 +28,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use('/', routes);
-app.use('/users', users);
-app.get('/login/twitter', passport.authenticate('twitter'));
-app.get('/login/twitter/return',
-  passport.authenticate('twitter', { successRedirect: '/',
-                                     failureRedirect: '/login' }));
+// app.get('/login/twitter', passport.authenticate('twitter'));
+// app.get('/login/twitter/return',
+//   passport.authenticate('twitter', { successRedirect: '/',
+//                                      failureRedirect: '/login' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
