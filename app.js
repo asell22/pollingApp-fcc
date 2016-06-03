@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session')
 
 
 var routes = require('./routes/index');
@@ -11,10 +13,13 @@ var routes = require('./routes/index');
 var app = express();
 
 var mongoose = require('mongoose');
-var passport = require('passport');
-var session = require('express-session');
 
-mongoose.connect('mongodb://localhost/polls');
+
+require('./models/poll');
+var User = require('./models/user');
+
+
+require('./config/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,16 +31,16 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.session({ secret: 'keyboard cat' }))
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'secret',
   resave: true,
   saveUninitialized: true
 }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use('/', routes);
 // app.get('/login/twitter', passport.authenticate('twitter'));

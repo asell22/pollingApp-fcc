@@ -2,25 +2,24 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
-var passportTwitter = require('../auth/twitter');
+var passport = require('passport');
+require('../config/passport');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/login', function(req, res, next) {
-  res.send('Go back and register!');
+router.get('/auth/twitter', passport.authenticate('twitter'));
+
+router.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect:'/'}), function(req, res) {
+  res.redirect('/', {user: req.user});
 });
 
-router.get('/auth/twitter', passportTwitter.authenticate('twitter'));
-
-router.get('/auth/twitter/callback',
-  passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication
-    res.json(req.user);
-  });
+router.get('/yes', function(req, res) {
+  res.send('YES')
+})
 
 router.get('/polls', function(req, res, next) {
   Poll.find(function(err, polls) {
