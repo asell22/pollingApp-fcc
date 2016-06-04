@@ -3,19 +3,27 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
 var passport = require('passport');
-require('../config/passport');
+require('../config/passport')(passport);
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  if (req.user) {
+    console.log('$$$$$$$$$$$$$$', req.user.username);
+  }
+  res.render('index', { user: 'hello' });
 });
+
+router.get('/error', function(req, res) {
+  res.send('Something went wrong')
+})
 
 router.get('/auth/twitter', passport.authenticate('twitter'));
 
-router.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect:'/'}), function(req, res) {
-  res.redirect('/', {user: req.user});
-});
+router.get('/auth/twitter/callback', passport.authenticate('twitter', {
+  failureRedirect:'/error',
+  successRedirect: '/'
+}));
 
 router.get('/yes', function(req, res) {
   res.send('YES')

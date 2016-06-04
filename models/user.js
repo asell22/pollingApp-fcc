@@ -7,22 +7,22 @@ var userConnection = mongoose.createConnection('mongodb://localhost/users');
 var userSchema = new Schema({
   twitterId: String,
   username: String,
-  screenName: String
+  displayName: String
 });
 
 userSchema.statics.findOrCreate = function(queryObj, profile, done) {
-  // console.log("#############", profile);
+  console.log("#############", profile);
   return this.findOne(queryObj, function(err, user) {
-    console.log('************', profile);
+
     if (err) {
       return done(err);
     }
 
     if (!user) {
       var newUser = new User({
-        twitterId: profile.id_str,
-        name: profile.name,
-        screenName: profile.screen_name,
+        twitterId: profile.id,
+        username: profile.username,
+        displayName: profile.displayName
       });
       newUser.save(function(err) {
         if (err) console.log(err);
