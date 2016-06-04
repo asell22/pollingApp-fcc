@@ -5,7 +5,12 @@ var Poll = require('../models/poll');
 var passport = require('passport');
 require('../config/passport')(passport);
 
+var isAuthenticated = function(req, res, next) {
+  if (req.user.authenticated)
+    return next();
 
+  res.redirect('/');
+}
 
 
 /* GET home page. */
@@ -43,7 +48,7 @@ router.get('/polls', function(req, res, next) {
   })
 });
 
-router.post('/polls', function(req, res, next) {
+router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
 
   poll.save(function(err, poll) {
