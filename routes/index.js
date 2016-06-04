@@ -5,14 +5,6 @@ var Poll = require('../models/poll');
 var passport = require('passport');
 require('../config/passport')(passport);
 
-// var isAuthenticated = function(req, res, next) {
-//   if (req.user.authenticated) {
-//     return next();
-//   }
-//   res.redirect('/');
-// }
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
@@ -96,7 +88,6 @@ router.put('/polls/:poll/:index', function(req, res, next) {
 
 function isAuthenticated(req, res, next) {
   if (req.user) {
-    console.log("You are authenticated");
     return next();
   }
   res.redirect('/');

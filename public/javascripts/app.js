@@ -152,5 +152,4 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     option.totalVotes++;
     polls.vote(poll._id, index);
   }
-
 })

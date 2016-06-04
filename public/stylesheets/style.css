@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
 .welcome-user {
   font-weight: 700;
   font-size: 1.2em;
