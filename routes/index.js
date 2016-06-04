@@ -5,19 +5,19 @@ var Poll = require('../models/poll');
 var passport = require('passport');
 require('../config/passport')(passport);
 
-var isAuthenticated = function(req, res, next) {
-  if (req.user.authenticated)
-    return next();
-
-  res.redirect('/');
-}
+// var isAuthenticated = function(req, res, next) {
+//   if (req.user.authenticated) {
+//     return next();
+//   }
+//   res.redirect('/');
+// }
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
     var user = req.user.username;
-    console.log('$$$$$$$$$$$$$$', req.user.username);
+    console.log('$$$$$$$$$$$$$$', req.user);
   }
 
 
@@ -50,6 +50,7 @@ router.get('/polls', function(req, res, next) {
 
 router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
+  // poll.user = req.user.username;
 
   poll.save(function(err, poll) {
     if (err) {
@@ -92,5 +93,13 @@ router.put('/polls/:poll/:index', function(req, res, next) {
     })
   })
 });
+
+function isAuthenticated(req, res, next) {
+  if (req.user) {
+    console.log("You are authenticated");
+    return next();
+  }
+  res.redirect('/');
+}
 
 module.exports = router;
