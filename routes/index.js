@@ -50,7 +50,7 @@ router.get('/polls', function(req, res, next) {
 
 router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
-  // poll.user = req.user.username;
+  poll.user = req.user.username;
 
   poll.save(function(err, poll) {
     if (err) {
