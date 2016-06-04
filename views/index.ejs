@@ -6,16 +6,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title" charset="utf-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
-    <script>
-      var user = <%- JSON.stringify(user) %>;
+    <!-- <script>
+      var user = <%- JSON.stringify(user) %>
       angular.module('PreloadedData', []).constant('User', user)
-    </script>
+    </script> -->
   </head>
   <body ng-app="voting" ng-controller="mainCtrl as main"ng-cloak>
     <div class="container">
       <h1>{{main.title}}</h1>
-      <div class="">
-        <%= user %>
+      <div class="welcome-user">
+        <% if (user) { %>
+          Welcome <%=  user %>
+        <% } %>
       </div>
       <a href="/auth/twitter" class="btn btn-default">Twitter</a>
 

@@ -6,12 +6,17 @@ var passport = require('passport');
 require('../config/passport')(passport);
 
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
+    var user = req.user.username;
     console.log('$$$$$$$$$$$$$$', req.user.username);
   }
-  res.render('index', { user: 'hello' });
+
+
+  res.render('index', { user: user });
 });
 
 router.get('/error', function(req, res) {
