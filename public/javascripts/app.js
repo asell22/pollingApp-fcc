@@ -79,9 +79,12 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       count: self.optionCount,
       totalVotes: 0
     }
-    self.options.push(self.optionObj);
-    self.option = '';
-    self.optionCount++;
+    if (self.option) {
+      self.options.push(self.optionObj);
+      self.option = '';
+      self.optionCount++;
+    }
+
   }
   self.addPoll = function() {
     if (self.options.length > 1) {
