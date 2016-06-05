@@ -11,14 +11,12 @@
       angular.module('PreloadedData', []).constant('User', user)
     </script> -->
   </head>
-  <body ng-app="voting" ng-controller="mainCtrl as main"ng-cloak>
+  <body ng-app="home" ng-controller="mainCtrl as main"ng-cloak>
     <div ui-view name="nav"></div>
     <div class="container">
       <h1>{{main.title}}</h1>
       <div class="welcome-user">
-        <% if (user) { %>
-          Welcome <%=  user %>
-        <% } %>
+        Welcome <%=  user.displayName %>
       </div>
 
 
@@ -29,7 +27,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.2.5/highcharts.js"></script>
     <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
-    <script src="javascripts/app.js"></script>
+    <script src="javascripts/authenticated.js"></script>
 
   </body>
 </html>
