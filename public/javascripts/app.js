@@ -6,14 +6,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
     $stateProvider
       .state('home', {
         url: '/',
-        views: {
-          nav: {
-            templateUrl: 'partials/nav.html'
-          },
-          content: {
-            templateUrl: 'partials/main.html'
-          }
-        },
+        templateUrl: 'partials/main.html',
         controller: 'mainCtrl',
         controllerAs: 'main',
         resolve: {

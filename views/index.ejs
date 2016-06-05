@@ -24,15 +24,16 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <% if (user) { %>
+                <!-- <%- console.log(user) %> -->
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/#/new">Create A Poll</a></li>
-                <li><a href="#">My Polls</a></li>
+                <li><a href="/polls/user/<%= user %>">My Polls</a></li>
               <% } else { %>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/auth/twitter">Sign In With Twitter</a></li>
               <% } %>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </nav>
       <h1>{{main.title}}</h1>

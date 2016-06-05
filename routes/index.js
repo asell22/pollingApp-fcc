@@ -14,11 +14,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { user: user });
 });
 
-router.get('/home', function(req, res, next) {
-  var user = req.user;
-  res.render('welcome', {user: user});
-})
-
 router.get('/error', function(req, res) {
   res.send('Something went wrong')
 })
@@ -27,7 +22,7 @@ router.get('/auth/twitter', passport.authenticate('twitter'));
 
 router.get('/auth/twitter/callback', passport.authenticate('twitter', {
   failureRedirect:'/error',
-  successRedirect: '/home'
+  successRedirect: '/'
 }));
 
 router.get('/polls', function(req, res, next) {
@@ -38,6 +33,16 @@ router.get('/polls', function(req, res, next) {
     res.json(polls);
   })
 });
+
+router.get('/polls/user/:user', function(req, res, next) {
+  var user = req.params.user;
+  Poll.find({user: user}, function(err, polls) {
+    if (err) {
+      return next(err);
+    }
+    res.json(polls);
+  })
+})
 
 router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
