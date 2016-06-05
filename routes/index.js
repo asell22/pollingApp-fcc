@@ -5,24 +5,19 @@ var Poll = require('../models/poll');
 var passport = require('passport');
 require('../config/passport')(passport);
 
-// var isAuthenticated = function(req, res, next) {
-//   if (req.user.authenticated) {
-//     return next();
-//   }
-//   res.redirect('/');
-// }
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
     var user = req.user.username;
     console.log('$$$$$$$$$$$$$$', req.user);
   }
-
-
   res.render('index', { user: user });
 });
+
+router.get('/home', function(req, res, next) {
+  var user = req.user;
+  res.render('welcome', {user: user});
+})
 
 router.get('/error', function(req, res) {
   res.send('Something went wrong')
@@ -32,12 +27,8 @@ router.get('/auth/twitter', passport.authenticate('twitter'));
 
 router.get('/auth/twitter/callback', passport.authenticate('twitter', {
   failureRedirect:'/error',
-  successRedirect: '/'
+  successRedirect: '/home'
 }));
-
-router.get('/yes', function(req, res) {
-  res.send('YES')
-})
 
 router.get('/polls', function(req, res, next) {
   Poll.find(function(err, polls) {
@@ -96,7 +87,6 @@ router.put('/polls/:poll/:index', function(req, res, next) {
 
 function isAuthenticated(req, res, next) {
   if (req.user) {
-    console.log("You are authenticated");
     return next();
   }
   res.redirect('/');

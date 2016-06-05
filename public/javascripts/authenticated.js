@@ -1,4 +1,4 @@
-angular.module('voting', ['ui.router', 'highcharts-ng'])
+angular.module('home', ['ui.router', 'highcharts-ng'])
 .config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -8,7 +8,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
         url: '/',
         views: {
           nav: {
-            templateUrl: 'partials/nav.html'
+            templateUrl: 'partials/registered-nav.html'
           },
           content: {
             templateUrl: 'partials/main.html'
@@ -24,7 +24,14 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       })
       .state('form', {
         url: '/new',
-        templateUrl: 'partials/form.html',
+        views: {
+          nav: {
+            templateUrl: 'partials/registered-nav.html'
+          },
+          content: {
+            templateUrl: 'partials/form.html'
+          }
+        },
         controller: 'votingFormCtrl',
         controllerAs: 'form'
       })
@@ -86,12 +93,9 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       count: self.optionCount,
       totalVotes: 0
     }
-    if (self.option) {
-      self.options.push(self.optionObj);
-      self.option = '';
-      self.optionCount++;
-    }
-
+    self.options.push(self.optionObj);
+    self.option = '';
+    self.optionCount++;
   }
   self.addPoll = function() {
     if (self.options.length > 1) {
