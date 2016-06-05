@@ -15,6 +15,17 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
           }]
         }
       })
+      .state('user', {
+        url: '/polls/user/{user}',
+        templateUrl: 'partials/main.html',
+        controller: 'mainCtrl',
+        controllerAs: 'main',
+        resolve: {
+          pollPromise: ['$stateParams', 'polls', function($stateParams, polls) {
+            return polls.getUserPolls($stateParams.user);
+          }]
+        }
+      })
       .state('form', {
         url: '/new',
         templateUrl: 'partials/form.html',
@@ -42,6 +53,11 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       angular.copy(data, pollsObject.polls)
     })
   };
+  pollsObject.getUserPolls = function(user) {
+    return $http.get('/polls/user/' + user).success(function(data) {
+      angular.copy(data, pollsObject.polls)
+    })
+  }
   pollsObject.create = function(poll) {
     return $http.post('/polls', poll).success(function(data) {
       pollsObject.polls.push(data);
