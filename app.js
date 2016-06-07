@@ -42,6 +42,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use('/', routes);
 // app.get('/login/twitter', passport.authenticate('twitter'));
 // app.get('/login/twitter/return',

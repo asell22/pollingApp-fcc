@@ -68,6 +68,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       return res.data;
     })
   };
+
   pollsObject.vote = function(id, index) {
     return $http.put('/polls/' + id + '/' + index).success(function(data) {
       return data;
@@ -76,10 +77,16 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 
   return pollsObject;
 })
-.controller('mainCtrl', function($scope, polls) {
+.controller('mainCtrl', function($scope, polls, $http) {
   var self = this;
   self.title = "Awesome Voting App";
   self.polls = polls.polls;
+  $scope.deletePoll = function(id, index) {
+    self.polls.splice(index, 1);
+    $http.delete('/polls/' + id).then(function(res){
+      console.log("Deleted!");
+    })
+  }
 })
 .controller('votingFormCtrl', function($scope, polls, $state) {
   var self = this;

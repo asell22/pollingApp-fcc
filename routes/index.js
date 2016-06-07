@@ -78,6 +78,13 @@ router.get('/polls/:poll', function(req, res) {
   res.json(req.poll);
 });
 
+router.delete('/polls/:poll', function(req, res) {
+  Poll.findByIdAndRemove(req.poll, {}, function(err, poll) {
+    if (err) res.send(err);
+    console.log("Deleted");
+  })
+})
+
 router.put('/polls/:poll/:index', function(req, res, next) {
   var index = req.params.index;
   Poll.findById(req.poll, function(err, poll) {
