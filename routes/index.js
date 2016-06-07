@@ -79,9 +79,10 @@ router.get('/polls/:poll', function(req, res) {
 });
 
 router.delete('/polls/:poll', function(req, res) {
-  Poll.findByIdAndRemove(req.poll, {}, function(err, poll) {
+  Poll.findByIdAndRemove(req.poll, function(err, poll) {
     if (err) res.send(err);
-    console.log("Deleted");
+    // res.send(polls);
+    res.send(poll);
   })
 })
 

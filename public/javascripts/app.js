@@ -82,8 +82,9 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   self.title = "Awesome Voting App";
   self.polls = polls.polls;
   $scope.deletePoll = function(id, index) {
-    self.polls.splice(index, 1);
     $http.delete('/polls/' + id).then(function(res){
+      console.log(res)
+      self.polls.splice(index, 1);
       console.log("Deleted!");
     })
   }
