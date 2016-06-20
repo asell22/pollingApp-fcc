@@ -24,6 +24,7 @@ require('./config/passport')(passport);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -37,7 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'secret',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  proxy: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,6 +57,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handlers
 

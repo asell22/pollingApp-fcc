@@ -11,7 +11,7 @@ var userSchema = new Schema({
 });
 
 userSchema.statics.findOrCreate = function(queryObj, profile, done) {
-  console.log("#############", profile);
+  // console.log("#############", profile);
   return this.findOne(queryObj, function(err, user) {
 
     if (err) {
@@ -48,4 +48,7 @@ userSchema.methods.generateJWT = function() {
 
 var User = userConnection.model('User', userSchema);
 
-module.exports = User;
+module.exports = {
+  model: User,
+  userSchema: userSchema
+}

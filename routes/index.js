@@ -47,7 +47,7 @@ router.get('/polls/user/:user', function(req, res, next) {
 router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
   poll.user = req.user.username;
-
+  poll.users = [];
   poll.save(function(err, poll) {
     if (err) {
       return next(err);
@@ -87,13 +87,17 @@ router.delete('/polls/:poll', function(req, res) {
 })
 
 router.put('/polls/:poll/:index', function(req, res, next) {
+  console.log('***************',req.ip)
   var index = req.params.index;
+  var authUser = req.user;
+  var username = authUser.username
   Poll.findById(req.poll, function(err, poll) {
     if (err) res.send(err)
+    poll.users.push(username);
     poll.options[index].totalVotes++;
     poll.save(function(err) {
       if (err) res.send(err);
-      res.send(poll);
+      res.send({poll: poll, user: authUser});
     })
   })
 });

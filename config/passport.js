@@ -9,7 +9,7 @@ module.exports = function(passport) {
     });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+    User.model.findById(id, function(err, user) {
       done(err, user);
     })
   });;
@@ -20,9 +20,9 @@ module.exports = function(passport) {
     callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, cb) {
-    User.findOrCreate({ twitterId: profile.id }, profile, function (err, user) {
+    User.model.findOrCreate({ twitterId: profile.id }, profile, function (err, user) {
       return cb(err, user);
     });
   }
-));  
+));
 }
