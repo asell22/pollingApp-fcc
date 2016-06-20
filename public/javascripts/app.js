@@ -65,14 +65,14 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   };
   pollsObject.getPoll = function(id) {
     return $http.get('/polls/' + id).then(function(res) {
-      return res.data;
+      return {poll: res.data.poll, user: res.data.user};
     })
   };
 
   pollsObject.vote = function(id, index) {
-    return $http.put('/polls/' + id + '/' + index).success(function(data) {
-      console.log('poll:', data.poll.users);
-      console.log('authenticated user:', data.user.username);
+    return $http.put('/polls/' + id + '/' + index).then(function(data) {
+      // console.log('poll:', data.poll.users);
+      // console.log('authenticated user:', data.user.username);
       // data.poll.users.push(data.user.username);
       return data;
     })
@@ -136,7 +136,9 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 })
 .controller('pollCtrl', function($scope, polls, poll) {
 
-  $scope.poll = poll;
+  $scope.poll = poll.poll;
+  $scope.user = poll.user;
+
   var title = $scope.poll.title;
   var data = $scope.poll.options;
   $scope.pieData = [];
@@ -176,10 +178,11 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 
   $scope.increment = function(option) {
     console.log($scope.poll);
+    console.log($scope.user);
     var data = $scope.chartConfig.series[0].data;
     var index = this.$index;
     data[index][1]++;
     option.totalVotes++;
-    polls.vote(poll._id, index);
+    polls.vote($scope.poll._id, index);
   }
 })

@@ -7,7 +7,7 @@ var pollSchema = new Schema({
   title: String,
   user: String,
   options: [{name: String, count: Number, totalVotes: Number }],
-  users: [User.userSchema]
+  users: [String]
 });
 
 var Poll = pollConnection.model('Poll', pollSchema);
