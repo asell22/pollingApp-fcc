@@ -179,9 +179,11 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   $scope.increment = function(option) {
     console.log($scope.poll);
     console.log($scope.user);
+
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You have already voted on this poll!")
     } else {
+      $scope.poll.users.push($scope.user.username)
       var data = $scope.chartConfig.series[0].data;
       var index = this.$index;
       data[index][1]++;
