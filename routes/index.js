@@ -75,6 +75,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
+  var user = req.user;
   res.json(req.poll);
 });
 
@@ -90,11 +91,13 @@ router.put('/polls/:poll/:index', function(req, res, next) {
   console.log('***************',req.ip)
   var index = req.params.index;
   var authUser = req.user;
-  var username = authUser.username
+
   Poll.findById(req.poll, function(err, poll) {
+    // var username = authUser.username
     if (err) res.send(err)
-    poll.users.push(username);
+    // poll.users.push(username);
     poll.options[index].totalVotes++;
+    poll.users.push(authUser);
     poll.save(function(err) {
       if (err) res.send(err);
       res.send({poll: poll, user: authUser});
