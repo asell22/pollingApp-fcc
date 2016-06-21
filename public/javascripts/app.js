@@ -45,7 +45,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       $urlRouterProvider.otherwise('/');
   }
 ])
-.factory('polls', function($http) {
+.factory('polls', function($http, $window) {
   var pollsObject = {};
   pollsObject.polls = [];
   pollsObject.getPolls = function() {
@@ -74,6 +74,13 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       // console.log('poll:', data.poll.users);
       // console.log('authenticated user:', data.user.username);
       // data.poll.users.push(data.user.username);
+      return data;
+    })
+  }
+
+  pollsObject.addAnotherOption = function(id, option) {
+    return $http.put('/addoption/polls/' + id + '/' + option).then(function(data) {
+      $window.location.reload();
       return data;
     })
   }
@@ -140,6 +147,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
   $scope.hasVoted = false;
+  $scope.another = '';
 
   if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
@@ -203,5 +211,10 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       option.totalVotes++;
       polls.vote($scope.poll._id, index);
     }
+  }
+
+  $scope.addAnotherOption = function(option) {
+    console.log(option);
+    polls.addAnotherOption($scope.poll._id, option);
   }
 })

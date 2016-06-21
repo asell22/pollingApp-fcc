@@ -7,8 +7,8 @@
   <button type="button" class="btn btn-info" ng-click="increment(option)">+</button>
 </div>
 <div ng-show="isAuthenticated && !hasVoted">
-  <h1>Don't see what you want to vote for?</h1>
-  <input type="text" placeholder="Enter Option">
-  <button type="button" class="btn btn-primary" name="button">Add Option</button>
+  <h1>Wanna vote for something else?</h1>
+  <input type="text" placeholder="Enter Option" ng-model="another">
+  <button type="button" class="btn btn-primary" ng-click="addAnotherOption(another)">Add Option</button>
 </div>
 <highchart id="chart1" config="chartConfig"></highchart>

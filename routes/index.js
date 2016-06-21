@@ -89,6 +89,25 @@ router.delete('/polls/:poll', function(req, res) {
     // res.send(polls);
     res.send(poll);
   })
+});
+
+router.put('/addoption/polls/:poll/:option', function(req, res, next) {
+  var optionName = req.params.option;
+  console.log(optionName);
+  Poll.findById(req.poll, function(err, poll) {
+    var option = {
+      name: optionName,
+      count: poll.options.length++,
+      totalVotes: 1
+    }
+    if (err) res.send(err);
+    poll.options.push(option);
+    poll.users.push(req.user.username);
+    poll.save(function(err) {
+      if(err) res.send(err);
+      res.send({poll: poll})
+    })
+  })
 })
 
 router.put('/polls/:poll/:index', function(req, res, next) {
