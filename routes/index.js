@@ -46,7 +46,6 @@ router.get('/polls/user/:user', function(req, res, next) {
 
 router.post('/polls', isAuthenticated, function(req, res, next) {
   var poll = new Poll(req.body);
-  poll.user = req.user.username || 'not auth';
   poll.users = [];
   poll.save(function(err, poll) {
     if (err) {
@@ -75,8 +74,13 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var user = req.user;
-  res.json({poll: req.poll, user: user});
+  var ip = String(req.ip);
+  if (req.user) {
+    var user = req.user;
+  } else {
+    var user = {twitterId: 'null', username: String(req.ip), displayName: 'null'};
+  }
+  res.json({poll: req.poll, user: user, ip: ip});
 });
 
 router.delete('/polls/:poll', function(req, res) {
@@ -90,7 +94,15 @@ router.delete('/polls/:poll', function(req, res) {
 router.put('/polls/:poll/:index', function(req, res, next) {
   console.log('***************',req.ip)
   var index = req.params.index;
-  var authUser = req.user.username || 'auth user';
+  var ip = String(req.ip);
+
+  if (req.user) {
+    var authUser = req.user.username;
+    var userObj = req.user;
+  } else {
+    var authUser = String(req.ip);
+    var userObj = {twitterId: 'null', username: String(req.ip), displayName: 'null'}
+  }
 
   Poll.findById(req.poll, function(err, poll) {
     // var username = authUser.username
@@ -100,7 +112,7 @@ router.put('/polls/:poll/:index', function(req, res, next) {
     poll.users.push(authUser);
     poll.save(function(err) {
       if (err) res.send(err);
-      res.send({poll: poll, user: req.user});
+      res.send({poll: poll, user: userObj, ip: ip});
     })
   })
 });
