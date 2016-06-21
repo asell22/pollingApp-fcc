@@ -6,4 +6,7 @@
   <h3>{{option.name}}: {{option.totalVotes}}</h3>
   <button type="button" class="btn btn-info" ng-click="increment(option)">+</button>
 </div>
+<div ng-show="isAuthenticated && !hasVoted">
+  <h2>I am authenticated and I have not voted</h2>
+</div>
 <highchart id="chart1" config="chartConfig"></highchart>

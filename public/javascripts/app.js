@@ -139,12 +139,18 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   $scope.poll = poll.poll;
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
+  $scope.hasVoted = false;
 
   if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
   }
 
+  if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
+    $scope.hasVoted = true;
+  }
+
   console.log("Is this user authenticated?:", $scope.isAuthenticated);
+  console.log("Has the user voted?:", $scope.hasVoted);
 
   var title = $scope.poll.title;
   var data = $scope.poll.options;
@@ -186,7 +192,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
   $scope.increment = function(option) {
     // console.log($scope.poll);
     console.log('User:', $scope.user);
-
+    $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You have already voted on this poll!")
     } else {
