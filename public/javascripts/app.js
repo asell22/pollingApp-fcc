@@ -1,6 +1,6 @@
 angular.module('voting', ['ui.router', 'highcharts-ng'])
 .config(['$locationProvider', function($locationProvider) {
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({enabled: true, requireBase: false});
 }])
 .config([
   '$stateProvider',
@@ -48,7 +48,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
       $urlRouterProvider.otherwise('/');
   }
 ])
-.factory('polls', function($http, $window) {
+.factory('polls', function($http, $state) {
   var pollsObject = {};
   pollsObject.polls = [];
   pollsObject.getPolls = function() {
@@ -83,7 +83,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
 
   pollsObject.addAnotherOption = function(id, option) {
     return $http.put('/addoption/polls/' + id + '/' + option).then(function(data) {
-      $window.location.reload();
+      $state.go('poll', {}, {reload: true});
       return data;
     })
   }

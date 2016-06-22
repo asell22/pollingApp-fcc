@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Voting App</title>
+    <base href="/"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title" charset="utf-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
-    <base href="/">
+
   </head>
   <body ng-app="voting" ng-controller="mainCtrl as main"ng-cloak>
 
@@ -27,11 +28,11 @@
               <% if (user) { %>
                 <!-- <%- console.log(user) %> -->
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="/#/new">Create A Poll</a></li>
-                <li><a href="/#/polls/user/<%= user %>">My Polls</a></li>
+                <li><a href="/new">Create A Poll</a></li>
+                <li><a href="/polls/user/<%= user %>">My Polls</a></li>
               <% } else { %>
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="/auth/twitter">Sign In With Twitter</a></li>
+                <li><a href="/auth/twitter" target="_self">Sign In With Twitter</a></li>
               <% } %>
             </ul>
           </div>
@@ -52,6 +53,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.2.5/highcharts.js"></script>
     <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
     <script src="javascripts/app.js"></script>
+    <!-- <script src="javascripts/services/polls.js"></script>
+    <script src="javascripts/controllers/main.js"></script>
+    <script src="javascripts/controllers/voting-form.js"></script>
+    <script src="javascripts/controllers/poll.js"></script> -->
+
 
   </body>
 </html>
