@@ -1,4 +1,7 @@
 angular.module('voting', ['ui.router', 'highcharts-ng'])
+.config(['$locationProvider', function($locationProvider) {
+  $locationProvider.html5Mode(true);
+}])
 .config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -33,7 +36,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
         controllerAs: 'form'
       })
       .state('poll', {
-        url: '/polls/{id}',
+        url: '/poll/{id}',
         templateUrl: 'partials/poll.html',
         controller: 'pollCtrl',
         resolve: {

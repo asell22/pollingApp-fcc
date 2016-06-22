@@ -11,4 +11,7 @@
   <input type="text" placeholder="Enter Option" ng-model="another">
   <button type="button" class="btn btn-primary" ng-click="addAnotherOption(another)">Add Option</button>
 </div>
+<a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text={{poll.title}}&url=http://127.0.0.1:3000/poll/{{poll._id}}">
+Tweet</a>
 <highchart id="chart1" config="chartConfig"></highchart>
