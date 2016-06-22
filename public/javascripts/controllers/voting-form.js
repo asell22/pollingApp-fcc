@@ -1,6 +1,6 @@
 angular.module('voting')
 .controller('votingFormCtrl', function($scope, polls, $state) {
-  console.log("User:", user);
+  
   var self = this;
   self.polls = polls;
   self.count = self.polls.length;

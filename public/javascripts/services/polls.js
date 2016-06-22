@@ -1,5 +1,5 @@
 angular.module('voting')
-.factory('polls', function($http, $window) {
+.factory('polls', function($http, $state) {
   var pollsObject = {};
   pollsObject.polls = [];
   pollsObject.getPolls = function() {
@@ -22,6 +22,7 @@ angular.module('voting')
       return {poll: res.data.poll, user: res.data.user, ip: res.data.ip};
     })
   };
+
   pollsObject.vote = function(id, index) {
     return $http.put('/polls/' + id + '/' + index).then(function(data) {
       // console.log('poll:', data.poll.users);
@@ -30,11 +31,13 @@ angular.module('voting')
       return data;
     })
   }
+
   pollsObject.addAnotherOption = function(id, option) {
     return $http.put('/addoption/polls/' + id + '/' + option).then(function(data) {
-      $window.location.reload();
+      $state.go('poll', {}, {reload: true});
       return data;
     })
   }
+
   return pollsObject;
 })
