@@ -1,5 +1,21 @@
 
-<ul>
-  <li ng-repeat="poll in main.polls track by $index"><a href="/poll/{{poll._id}}">{{poll.title}} by {{poll.user}}</a>
+<!-- <ul>
+
+  <li ng-repeat="poll in main.polls track by $index"><a href="/poll/{{poll._id}}" ng-click="removeNavActiveClass()">{{poll.title}} by {{poll.user}}</a>
   </li>
-</ul>
+</ul> -->
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Poll Title</th>
+      <th>Created By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="poll in main.polls track by $index">
+      <td><a href="/poll/{{poll._id}}">{{poll.title}}</a></td>
+      <td>{{poll.user}}</td>
+    </tr>
+  </tbody>
+</table>

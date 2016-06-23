@@ -2,9 +2,11 @@
 <div class="">
   <h1 ng-bind="poll.title"></h1><span>By {{poll.user}}</span>
 </div>
-<div ng-repeat="option in poll.options">
-  <h3>{{option.name}}: {{option.totalVotes}}</h3>
-  <button type="button" class="btn btn-info" ng-click="increment(option)">+</button>
+<div ng-repeat="option in poll.options" class="row">
+  <div class="col-xs-4">
+    <h3>{{option.name}}: {{option.totalVotes}}</h3>
+    <button type="button" ng-click="increment(option)" class="btn btn-info" >+</button>
+  </div>
 </div>
 <div ng-show="isAuthenticated && !hasVoted">
   <h1>Wanna vote for something else?</h1>

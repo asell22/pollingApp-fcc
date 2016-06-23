@@ -7,6 +7,10 @@ body {
   padding-top: 70px;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .welcome-user {
   font-weight: 700;
   font-size: 1.2em;
@@ -97,4 +101,8 @@ input.ng-invalid.ng-touched:-moz-placeholder { /* Firefox 18- */
 
 .btn:focus {
   outline: none;
+}
+
+.option-btn h3{
+  display: inline;
 }
