@@ -11,11 +11,11 @@ a:hover {
   text-decoration: none;
 }
 
-.welcome-user {
+/*.welcome-user {
   font-weight: 700;
   font-size: 1.2em;
   margin-bottom: 20px;
-}
+}*/
 
 .form-border {
     border: 1px solid #000;
@@ -105,4 +105,11 @@ input.ng-invalid.ng-touched:-moz-placeholder { /* Firefox 18- */
 
 .option-btn h3{
   display: inline;
+}
+
+/*Media Queries*/
+@media (max-width: 1000px) {
+  .options-warning {
+    margin-top: 25px;
+  }
 }
