@@ -1,11 +1,29 @@
 
-<div class="">
-  <h1 ng-bind="poll.title"></h1><span>By {{poll.user}}</span>
+<div class="row">
+  <div class="col-md-8">
+    <div class="poll">
+      <span class="poll-title" ng-bind="poll.title"></span><span class="poll-user">By {{poll.user}}</span>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <a class="twitter-share-button"
+      href="https://twitter.com/intent/tweet?text={{poll.title}}&url=http://127.0.0.1:3000/poll/{{poll._id}}"><i class="fa fa-twitter" aria-hidden="true"></i>
+    Share</a>
+  </div>
 </div>
-<div ng-repeat="option in poll.options" class="row">
-  <div class="col-xs-4">
-    <h3>{{option.name}}: {{option.totalVotes}}</h3>
-    <button type="button" ng-click="increment(option)" class="btn btn-info" >+</button>
+<div class="row">
+  <div class="col-xs-6">
+
+  </div>
+
+</div>
+<div class="voting-options">
+  <div ng-repeat="option in poll.options" class="row">
+    <div class="col-xs-8">
+      <span class="voting-option">{{option.name}}:<span class="voting-total"> {{option.totalVotes}}</span></span>
+      <button type="button" ng-click="increment(option)" class="btn btn-info" >+</button>
+    </div>
   </div>
 </div>
 <div ng-show="isAuthenticated && !hasVoted">
@@ -13,7 +31,4 @@
   <input type="text" placeholder="Enter Option" ng-model="another">
   <button type="button" class="btn btn-primary" ng-click="addAnotherOption(another)">Add Option</button>
 </div>
-<a class="twitter-share-button"
-  href="https://twitter.com/intent/tweet?text={{poll.title}}&url=http://127.0.0.1:3000/poll/{{poll._id}}">
-Tweet</a>
 <highchart id="chart1" config="chartConfig"></highchart>

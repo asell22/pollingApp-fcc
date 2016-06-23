@@ -103,8 +103,61 @@ input.ng-invalid.ng-touched:-moz-placeholder { /* Firefox 18- */
   outline: none;
 }
 
-.option-btn h3{
-  display: inline;
+/*poll style*/
+
+.poll > .poll-title {
+  font-size: 2.7em;
+  font-weight: 500;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.poll > .poll-user {
+  font-size: 1.2em;
+}
+
+.voting-options {
+  /*border: 3px solid black;*/
+  /*padding-left: 30px;*/
+  /*padding:10px;
+  width: 50%;
+  background: #404040;
+  color: #fff;
+  border-radius: 3%;
+  margin-bottom: 50px;*/
+}
+
+.voting-option {
+  font-size: 1.7em;
+  font-weight: 500;
+  display: inline-block;
+  margin: 15px 5px 15px 0;
+}
+
+.voting-option > .voting-total {
+  border: 1px solid #fff;
+  background: #fff;
+  padding-right: 4px;
+  padding-left: 2px;
+  margin-left: 14px;
+  color: #000;
+}
+
+
+
+
+.twitter-share-button,
+.twitter-share-button:hover {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background: #55ACEE;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.twitter-share-button:hover {
+  background-color: #2e99ea;
 }
 
 /*Media Queries*/

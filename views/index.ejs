@@ -5,6 +5,7 @@
     <title>Voting App</title>
     <base href="/"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title" charset="utf-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
 
@@ -30,6 +31,7 @@
                 <li ng-click="nav.makeActive($event)"><a href="/">Home</a></li>
                 <li ng-click="nav.makeActive($event)"><a href="/new">Create A Poll</a></li>
                 <li ng-click="nav.makeActive($event)"><a href="/user/<%= user %>">My Polls</a></li>
+                <li><a href="#"><%=  user %></a></li>
               <% } else { %>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/auth/twitter" target="_self">Sign In With Twitter</a></li>
@@ -39,11 +41,6 @@
         </div>
       </nav>
       <!-- <h1>{{main.title}}</h1> -->
-      <div class="welcome-user">
-        <% if (user) { %>
-          <h2>Welcome <%=  user %></h2>
-        <% } %>
-      </div>
       <div ui-view></div>
 
     </div>
