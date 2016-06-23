@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
 var passport = require('passport');
@@ -136,6 +137,13 @@ router.put('/polls/:poll/:index', function(req, res, next) {
     })
   })
 });
+
+router.get('*', function(req, res, next) {
+  if (req.user) {
+    var user = req.user.username;
+  }
+  res.render('index', { user: user });
+})
 
 function isAuthenticated(req, res, next) {
   if (req.user) {

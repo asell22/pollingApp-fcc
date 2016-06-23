@@ -27,9 +27,9 @@
             <ul class="nav navbar-nav navbar-right">
               <% if (user) { %>
                 <!-- <%- console.log(user) %> -->
-                <li class="active" ng-click="nav.makeActive($event)"><a href="/">Home</a></li>
+                <li ng-click="nav.makeActive($event)"><a href="/">Home</a></li>
                 <li ng-click="nav.makeActive($event)"><a href="/new">Create A Poll</a></li>
-                <li ng-click="nav.makeActive($event)"><a href="/polls/user/<%= user %>">My Polls</a></li>
+                <li ng-click="nav.makeActive($event)"><a href="/user/<%= user %>">My Polls</a></li>
               <% } else { %>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/auth/twitter" target="_self">Sign In With Twitter</a></li>

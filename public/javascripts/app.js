@@ -19,7 +19,7 @@ angular.module('voting', ['ui.router', 'highcharts-ng'])
         }
       })
       .state('user', {
-        url: '/polls/user/{user}',
+        url: '/user/{user}',
         templateUrl: 'partials/user.html',
         controller: 'mainCtrl',
         controllerAs: 'main',
