@@ -12,29 +12,28 @@
     Share</a>
   </div>
 </div>
-<div class="row">
-  <div class="col-xs-6">
-
-  </div>
-
-</div>
-<div class="voting-options">
-  <div ng-repeat="option in poll.options" class="row">
-    <div class="col-xs-12">
-      <span class="voting-option">{{option.name}}:<span class="voting-total"> {{option.totalVotes}}</span></span>
-    </div>
-  </div>
-</div>
-<div ng-show="isAuthenticated && !hasVoted">
-  <h1>Wanna vote for something else?</h1>
+<div ng-show="isAuthenticated && !hasVoted" class="voting-option-create">
+  <h5>Wanna vote for something else?</h5>
   <input type="text" placeholder="Enter Option" ng-model="another">
   <button type="button" class="btn btn-primary" ng-click="addAnotherOption(another)">Add Option</button>
 </div>
+  <div class="voting-options" class="row">
+    <div ng-repeat="option in poll.options">
+      <div class="col-xs-12">
+        <button type="button" ng-click="increment(option)" class="btn btn-info voting-button" >Vote {{option.name}}</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 <highchart id="chart1" config="chartConfig"></highchart>
 <div class="voting-options">
   <div ng-repeat="option in poll.options" class="row">
     <div class="col-xs-12">
-      <button type="button" ng-click="increment(option)" class="btn btn-info voting-button" >Vote {{option.name}}</button>
+      <span class="voting-option">{{option.name}}:<span class="voting-total"> {{option.totalVotes}}</span></span>
     </div>
   </div>
 </div>

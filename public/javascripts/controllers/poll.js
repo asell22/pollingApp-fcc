@@ -17,6 +17,7 @@ angular.module('voting')
 
   console.log("Is this user authenticated?:", $scope.isAuthenticated);
   console.log("Has the user voted?:", $scope.hasVoted);
+  // console.log("$scope.poll:", $scope.poll);
 
   var title = $scope.poll.title;
   var data = $scope.poll.options;
@@ -71,7 +72,18 @@ angular.module('voting')
   }
 
   $scope.addAnotherOption = function(option) {
-    console.log(option);
-    polls.addAnotherOption($scope.poll._id, option);
+    var upperCaseOption = option.toUpperCase();
+    var optionNames = [];
+    $scope.poll.options.forEach(function(opt) {
+      optionNames.push(opt.name.toUpperCase());
+    })
+    console.log("optionNames:", optionNames);
+    if (optionNames.indexOf(upperCaseOption) !== -1) {
+      alert("This is already a voting option!");
+      $scope.another = '';
+    } else {
+      console.log(option);
+      polls.addAnotherOption($scope.poll._id, option);
+    }
   }
 })
