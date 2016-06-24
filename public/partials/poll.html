@@ -20,9 +20,8 @@
 </div>
 <div class="voting-options">
   <div ng-repeat="option in poll.options" class="row">
-    <div class="col-xs-8">
+    <div class="col-xs-12">
       <span class="voting-option">{{option.name}}:<span class="voting-total"> {{option.totalVotes}}</span></span>
-      <button type="button" ng-click="increment(option)" class="btn btn-info" >+</button>
     </div>
   </div>
 </div>
@@ -32,3 +31,10 @@
   <button type="button" class="btn btn-primary" ng-click="addAnotherOption(another)">Add Option</button>
 </div>
 <highchart id="chart1" config="chartConfig"></highchart>
+<div class="voting-options">
+  <div ng-repeat="option in poll.options" class="row">
+    <div class="col-xs-12">
+      <button type="button" ng-click="increment(option)" class="btn btn-info voting-button" >Vote {{option.name}}</button>
+    </div>
+  </div>
+</div>

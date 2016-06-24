@@ -156,11 +156,21 @@ input.ng-invalid.ng-touched:-moz-placeholder { /* Firefox 18- */
   margin-bottom: 50px;*/
 }
 
+.voting-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin: 40px 0;
+}
+
 .voting-option {
   font-size: 1.7em;
   font-weight: 500;
   display: inline-block;
-  margin: 15px 5px 15px 0;
+  margin-left: 20px;
+  border: 1.5px solid black;
+  border-radius: 5%;
+  padding: 5px;
 }
 
 .voting-option > .voting-total {
@@ -168,8 +178,12 @@ input.ng-invalid.ng-touched:-moz-placeholder { /* Firefox 18- */
   background: #fff;
   padding-right: 4px;
   padding-left: 2px;
-  margin-left: 14px;
+  /*margin-left: 14px;*/
   color: #000;
+}
+
+.voting-button {
+  margin: 0 10px;
 }
 
 
