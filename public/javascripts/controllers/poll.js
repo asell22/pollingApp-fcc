@@ -59,7 +59,7 @@ angular.module('voting')
     console.log('User:', $scope.user);
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
-      alert("You have already voted on this poll!")
+      alert("You already voted on this poll!");
     } else {
       $scope.poll.users.push($scope.user.username)
       var data = $scope.chartConfig.series[0].data;

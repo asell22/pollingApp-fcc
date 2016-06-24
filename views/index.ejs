@@ -39,8 +39,8 @@
               </ul>
             <% } else { %>
               <ul ng-show="!nav.user" class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/"><%= home %></a></li>
-                <li ng-click="nav.toggleUser()"><a href="/auth/twitter" target="_self"><%= twitter %></a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li ng-click="nav.toggleUser()"><a href="/auth/twitter" target="_self">Sign In With Twitter</a></li>
               </ul>
             <% } %>
 
