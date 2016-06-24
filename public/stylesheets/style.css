@@ -11,6 +11,11 @@ a:hover {
   text-decoration: none;
 }
 
+.username > .name {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 /*.welcome-user {
   font-weight: 700;
   font-size: 1.2em;

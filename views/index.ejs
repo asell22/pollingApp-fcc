@@ -22,21 +22,29 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" ng-click="nav.logoClick($event)">Voting App</a>
+            <%if (user) { %>
+              <a class="navbar-brand" href="/" ng-click="nav.logoClick($event)">Voting App </a><a class="navbar-brand username" href="/user/<%= user %>"> | <span class="name"><%= user %></span></a>
+            <% } else { %>
+              <a class="navbar-brand" href="/" ng-click="nav.logoClick($event)">Voting App</a>
+            <% } %>
+
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <% if (user) { %>
-                <!-- <%- console.log(user) %> -->
+            <%if (user) { %>
+              <ul class="nav navbar-nav navbar-right">
                 <li ng-click="nav.makeActive($event)"><a href="/">Home</a></li>
                 <li ng-click="nav.makeActive($event)"><a href="/new">Create A Poll</a></li>
                 <li ng-click="nav.makeActive($event)"><a href="/user/<%= user %>">My Polls</a></li>
-                <li><a href="#"><%=  user %></a></li>
-              <% } else { %>
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/auth/twitter" target="_self">Sign In With Twitter</a></li>
-              <% } %>
-            </ul>
+                <li ng-click="nav.logOut()"><a href="/">Logout</a></li>
+              </ul>
+            <% } else { %>
+              <ul ng-show="!nav.user" class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/"><%= home %></a></li>
+                <li ng-click="nav.toggleUser()"><a href="/auth/twitter" target="_self"><%= twitter %></a></li>
+              </ul>
+            <% } %>
+
+
           </div>
         </div>
       </nav>

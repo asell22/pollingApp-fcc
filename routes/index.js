@@ -4,6 +4,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
 var passport = require('passport');
+var logout = require('express-passport-logout');
 require('../config/passport')(passport);
 
 /* GET home page. */
@@ -12,7 +13,9 @@ router.get('/', function(req, res, next) {
     var user = req.user.username;
     console.log('$$$$$$$$$$$$$$', req.user);
   }
-  res.render('index', { user: user });
+  var home = 'Home'
+  var twitter = 'Sign In With Twitter'
+  res.render('index', { user: user, home: home, twitter: twitter});
 });
 
 router.get('/error', function(req, res) {
@@ -25,6 +28,14 @@ router.get('/auth/twitter/callback', passport.authenticate('twitter', {
   failureRedirect:'/error',
   successRedirect: '/'
 }));
+
+router.get('/logout', isAuthenticated, function(req, res) {
+  var home = 'Home';
+  var twitter = 'Sign In With Twitter'
+  console.log('logout clicked');
+  req.logout();
+  res.redirect('/')
+});
 
 router.get('/polls', function(req, res, next) {
   Poll.find(function(err, polls) {

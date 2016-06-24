@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "express-passport-logout": "^0.1.0",
     "express-session": "^1.13.0",
     "mongoose": "^4.4.17",
     "morgan": "~1.6.1",
