@@ -25,9 +25,6 @@ angular.module('voting')
 
   pollsObject.vote = function(id, index) {
     return $http.put('/polls/' + id + '/' + index).then(function(data) {
-      // console.log('poll:', data.poll.users);
-      // console.log('authenticated user:', data.user.username);
-      // data.poll.users.push(data.user.username);
       return data;
     })
   }

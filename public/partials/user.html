@@ -1,5 +1,15 @@
-<ul>
-  <li ng-repeat="poll in main.polls track by $index"><a href="/poll/{{poll._id}}">{{poll.title}} by {{poll.user}}</a>
-  <button class="btn btn-danger" ng-click="deletePoll(poll._id, $index)">Delete</button>
-  </li>
-</ul>
+<h3>My Polls</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Poll Title</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="poll in main.polls track by $index">
+      <td><a href="/poll/{{poll._id}}">{{poll.title}}</a></td>
+      <td><button class="btn btn-danger" ng-click="deletePoll(poll._id, $index)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

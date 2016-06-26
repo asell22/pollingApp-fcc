@@ -1,3 +1,4 @@
+
 angular.module('voting')
 .controller('navCtrl', function($http, $window) {
   var self = this;
@@ -21,7 +22,6 @@ angular.module('voting')
 
   self.logOut = function() {
     return $http.get('/logout').then(function(data) {
-      console.log('Is this being called?');
       $window.location.reload();
       return data;
     })

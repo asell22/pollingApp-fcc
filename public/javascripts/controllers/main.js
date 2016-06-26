@@ -5,9 +5,7 @@ angular.module('voting')
   self.polls = polls.polls;
   $scope.deletePoll = function(id, index) {
     $http.delete('/polls/' + id).then(function(res){
-      console.log(res)
       self.polls.splice(index, 1);
-      console.log("Deleted!");
     })
   }
   $scope.removeNavActiveClass = function() {

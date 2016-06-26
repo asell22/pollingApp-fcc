@@ -17,7 +17,7 @@ angular.module('voting')
 
   console.log("Is this user authenticated?:", $scope.isAuthenticated);
   console.log("Has the user voted?:", $scope.hasVoted);
-  // console.log("$scope.poll:", $scope.poll);
+  console.log("$scope.poll:", $scope.poll);
 
   var title = $scope.poll.title;
   var data = $scope.poll.options;
@@ -56,8 +56,6 @@ angular.module('voting')
   }
 
   $scope.increment = function(option) {
-    // console.log($scope.poll);
-    console.log('User:', $scope.user);
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
