@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var jwt = require('jsonwebtoken');
 var Schema = mongoose.Schema;
 
 var userConnection = mongoose.createConnection('mongodb://localhost/users');
@@ -11,7 +10,6 @@ var userSchema = new Schema({
 });
 
 userSchema.statics.findOrCreate = function(queryObj, profile, done) {
-  // console.log("#############", profile);
   return this.findOne(queryObj, function(err, user) {
 
     if (err) {
