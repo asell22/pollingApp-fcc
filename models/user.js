@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userConnection = mongoose.createConnection('mongodb://localhost/users');
+var userConnection = mongoose.createConnection(process.env.MONGODB_URI || 'mongodb://localhost/users');
 
 var userSchema = new Schema({
   twitterId: String,

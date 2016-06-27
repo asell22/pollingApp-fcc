@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./user');
 
-var pollConnection = mongoose.createConnection('mongodb://localhost/polls');
+var pollConnection = mongoose.createConnection(process.env.MONGODB_URI || 'mongodb://localhost/polls');
 var pollSchema = new Schema({
   title: String,
   user: String,
