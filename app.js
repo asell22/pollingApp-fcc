@@ -47,10 +47,6 @@ app.use(passport.session());
 
 
 app.use('/', routes);
-// app.get('/login/twitter', passport.authenticate('twitter'));
-// app.get('/login/twitter/return',
-//   passport.authenticate('twitter', { successRedirect: '/',
-//                                      failureRedirect: '/login' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -84,7 +80,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000, function(){
+var port = process.env.PORT || 3000;
+
+app.listen(port, function(){
   console.log("Server listening on port 3000");
 })
 
