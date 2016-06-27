@@ -17,7 +17,7 @@ module.exports = function(passport) {
   passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: "https://polling-app-fcc-asell22.herokuapp.com/auth/twitter/callback" || "http://127.0.0.1:3000/auth/twitter/callback"
+    callbackURL: "https://polling-app-fcc-asell22.herokuapp.com/auth/twitter/callback" 
   },
   function(token, tokenSecret, profile, cb) {
     User.model.findOrCreate({ twitterId: profile.id }, profile, function (err, user) {
