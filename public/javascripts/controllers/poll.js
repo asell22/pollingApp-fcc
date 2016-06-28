@@ -56,6 +56,7 @@ angular.module('voting')
   }
 
   $scope.increment = function(option) {
+
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
