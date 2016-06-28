@@ -15,6 +15,7 @@ angular.module('voting')
     $scope.hasVoted = true;
   }
 
+  console.log("Here's the headers", $scope.ip);
   console.log("Is this user authenticated?:", $scope.isAuthenticated);
   console.log("Has the user voted?:", $scope.hasVoted);
   console.log("$scope.poll:", $scope.poll);
