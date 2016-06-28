@@ -87,7 +87,7 @@ router.get('/polls/:poll', function(req, res) {
   if (req.user) {
     var user = req.user;
   } else {
-    var user = {twitterId: 'null', username: ipAddr, displayName: 'null'};
+    var user = {twitterId: 'null', username: req.headers['x-forwarded-for'], displayName: 'null'};
   }
   res.json({poll: req.poll, user: user, ip: ipAddr});
 });
