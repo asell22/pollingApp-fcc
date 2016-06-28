@@ -81,8 +81,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  console.log(req.headers['X-Forwarded-For']);
-  var ip = String(req.headers['X-Forwarded-For']);
+  var ip = String(req.ip);
   if (req.user) {
     var user = req.user;
   } else {
