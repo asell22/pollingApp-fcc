@@ -88,11 +88,11 @@ router.get('/polls/:poll', function(req, res) {
   } else {
     ipAddr = req.connection.remoteAddress;
   }
-  var ip = String(req.ip);
+
   if (req.user) {
     var user = req.user;
   } else {
-    var user = {twitterId: 'null', username: String(ipAddr), displayName: 'null'};
+    var user = {twitterId: 'null', username: ipAddr, displayName: 'null'};
   }
   res.json({poll: req.poll, user: user, ip: ipAddr});
 });
