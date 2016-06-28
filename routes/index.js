@@ -81,13 +81,8 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = req.headers["x-forwarded-for"];
-  if (ipAddr){
-    var list = ipAddr.split(",");
-    ipAddr = list[0];
-  } else {
-    ipAddr = req.connection.remoteAddress;
-  }
+  var ipAddr = req.connection.remoteAddress;
+  
   var ip = String(req.ip);
   if (req.user) {
     var user = req.user;
