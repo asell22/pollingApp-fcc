@@ -6,12 +6,13 @@ angular.module('voting')
   $scope.isAuthenticated = true;
   $scope.hasVoted = false;
   $scope.another = '';
+  var username = $scope.user.username;
 
-  if ($scope.user.username === $scope.ip) {
+  if (username === $scope.ip) {
     $scope.isAuthenticated = false;
   }
 
-  if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
+  if ($scope.poll.users.indexOf(username) !== -1) {
     $scope.hasVoted = true;
   }
 
@@ -59,10 +60,10 @@ angular.module('voting')
   $scope.increment = function(option) {
 
     $scope.hasVoted = true;
-    if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
+    if ($scope.poll.users.indexOf(username) !== -1) {
       alert("You already voted on this poll!");
     } else {
-      $scope.poll.users.push($scope.user.username)
+      $scope.poll.users.push(username);
       var data = $scope.chartConfig.series[0].data;
       var index = this.$index;
       data[index][1]++;

@@ -81,7 +81,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = req.header("X-Forwarded-For");
+  var ipAddr = req.header('x-forwarded-for');
   // if (ipAddr){
   //   var list = ipAddr.split(",");
   //   ipAddr = list[list.length-1];
@@ -93,9 +93,9 @@ router.get('/polls/:poll', function(req, res) {
   if (req.user) {
     var user = req.user;
   } else {
-    var user = {twitterId: 'null', username: String(ipAddr), displayName: 'null'};
+    var user = {twitterId: 'null', username: ipAddr, displayName: 'null'};
   }
-  res.json({poll: req.poll, user: user, ip: String(ipAddr)});
+  res.json({poll: req.poll, user: user, ip: ipAddr});
 });
 
 router.delete('/polls/:poll', function(req, res) {
