@@ -15,7 +15,7 @@ angular.module('voting')
     $scope.hasVoted = true;
   }
 
-  console.log("Here's the headers", $scope.ip);
+  console.log("Here's the local variables", $scope.ip + " " + $scope.user.username);
   console.log("Is this user authenticated?:", $scope.isAuthenticated);
   console.log("Has the user voted?:", $scope.hasVoted);
   console.log("$scope.poll:", $scope.poll);
@@ -57,32 +57,18 @@ angular.module('voting')
   }
 
   $scope.increment = function(option) {
-    if ($scope.isAuthenticated) {
-      $scope.hasVoted = true;
-      if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
-        alert("You already voted on this poll!");
-      } else {
-        $scope.poll.users.push($scope.user.username)
-        var data = $scope.chartConfig.series[0].data;
-        var index = this.$index;
-        data[index][1]++;
-        option.totalVotes++;
-        polls.vote($scope.poll._id, index);
-      }
-    } else {
-      $scope.hasVoted = true;
-      if ($scope.poll.users.indexOf($scope.ip) !== -1) {
-        alert("You already voted on this poll!");
-      } else {
-        $scope.poll.users.push($scope.ip)
-        var data = $scope.chartConfig.series[0].data;
-        var index = this.$index;
-        data[index][1]++;
-        option.totalVotes++;
-        polls.vote($scope.poll._id, index);
-      }
-    }
 
+    $scope.hasVoted = true;
+    if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
+      alert("You already voted on this poll!");
+    } else {
+      $scope.poll.users.push($scope.user.username)
+      var data = $scope.chartConfig.series[0].data;
+      var index = this.$index;
+      data[index][1]++;
+      option.totalVotes++;
+      polls.vote($scope.poll._id, index);
+    }
   }
 
   $scope.addAnotherOption = function(option) {
