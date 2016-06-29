@@ -6,9 +6,9 @@ angular.module('voting')
   $scope.isAuthenticated = true;
   $scope.hasVoted = false;
   $scope.another = '';
-  var username = $scope.user.username;
+  var username = String($scope.user.username);
 
-  if (username === $scope.ip) {
+  if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
   }
 
