@@ -81,13 +81,13 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = req.headers["x-forwarded-for"];
-  if (ipAddr){
-    var list = ipAddr.split(",");
-    ipAddr = list[list.length-1];
-  } else {
-    ipAddr = req.connection.remoteAddress;
-  }
+  var ipAddr = req.header("X-Forwarded-For");
+  // if (ipAddr){
+  //   var list = ipAddr.split(",");
+  //   ipAddr = list[list.length-1];
+  // } else {
+  //   ipAddr = req.connection.remoteAddress;
+  // }
 
 
   if (req.user) {
