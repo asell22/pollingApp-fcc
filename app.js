@@ -87,7 +87,7 @@ var server = app.listen(port, function(){
 })
 
 var io = require('socket.io').listen(server);
-routes(app, io);
+require('./routes/index')(app, io);
 
 
 module.exports = app;
