@@ -82,12 +82,8 @@ app.use(function(err, req, res, next) {
 
 var port = process.env.PORT || 3000;
 
-var server = app.listen(port, function(){
+app.listen(port, function(){
   console.log("Server listening on port 3000");
 })
-
-var io = require('socket.io').listen(server);
-require('./routes/index')(app, io);
-
 
 module.exports = app;
