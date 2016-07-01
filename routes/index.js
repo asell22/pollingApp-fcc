@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var http = require('http');
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
 var passport = require('passport');
@@ -82,7 +81,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = req.connection.remoteAddress;
+  var ipAddr = req.headers["x-forwarded-for"].split(",")[0];
   // if (ipAddr){
   //   var list = ipAddr.split(",");
   //   ipAddr = list[list.length-1];
