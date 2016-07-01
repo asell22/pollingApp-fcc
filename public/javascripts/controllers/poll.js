@@ -4,16 +4,17 @@ angular.module('voting')
   $scope.poll = poll.poll;
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
-  $scope.hasVoted = false;
+  $scope.hasVoted;
+  if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
+    $scope.hasVoted = true;
+  } else {
+    $scope.hasVoted = false;
+  }
   $scope.another = '';
-  var username = String($scope.user.username);
+
 
   if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
-  }
-
-  if ($scope.poll.users.indexOf(username) !== -1) {
-    $scope.hasVoted = true;
   }
 
   console.log("Here's the local variables", $scope.ip + " " + $scope.user.username);
@@ -60,10 +61,10 @@ angular.module('voting')
   $scope.increment = function(option) {
 
     $scope.hasVoted = true;
-    if ($scope.poll.users.indexOf(username) !== -1) {
+    if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
     } else {
-      $scope.poll.users.push(username);
+      $scope.poll.users.push($scope.user.username);
       var data = $scope.chartConfig.series[0].data;
       var index = this.$index;
       data[index][1]++;
