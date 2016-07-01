@@ -82,7 +82,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = http.Request.RemoteAddr;
+  var ipAddr = req.connection.remoteAddress;
   // if (ipAddr){
   //   var list = ipAddr.split(",");
   //   ipAddr = list[list.length-1];
