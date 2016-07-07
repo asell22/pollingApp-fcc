@@ -17,10 +17,10 @@ angular.module('voting')
     $scope.isAuthenticated = false;
   }
 
-  console.log("Here's the local variables", $scope.ip + " " + $scope.user.username);
-  console.log("Is this user authenticated?:", $scope.isAuthenticated);
-  console.log("Has the user voted?:", $scope.hasVoted);
-  console.log("$scope.poll:", $scope.poll);
+  console.log("Here's the IP address after the page loads", $scope.ip);
+  // console.log("Is this user authenticated?:", $scope.isAuthenticated);
+  // console.log("Has the user voted?:", $scope.hasVoted);
+  // console.log("$scope.poll:", $scope.poll);
 
   var title = $scope.poll.title;
   var data = $scope.poll.options;
@@ -59,7 +59,7 @@ angular.module('voting')
   }
 
   $scope.increment = function(option) {
-
+    console.log("Here's the IP address after the user votes", $scope.ip);
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
