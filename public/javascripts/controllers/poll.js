@@ -18,9 +18,10 @@ angular.module('voting')
   }
 
   console.log("Here's the IP address after the page loads", $scope.ip);
+  console.log("Here's the username (will be IP address if user is unauthenticated)", $scope.user.username);
   // console.log("Is this user authenticated?:", $scope.isAuthenticated);
   // console.log("Has the user voted?:", $scope.hasVoted);
-  // console.log("$scope.poll:", $scope.poll);
+  console.log("$scope.poll:", $scope.poll);
 
   var title = $scope.poll.title;
   var data = $scope.poll.options;
@@ -60,6 +61,7 @@ angular.module('voting')
 
   $scope.increment = function(option) {
     console.log("Here's the IP address after the user votes", $scope.ip);
+    console.log("This should be stored in $scope.poll.users array. Refresh the page and see what was actually stored");
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
