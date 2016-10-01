@@ -82,7 +82,7 @@ router.param('poll', function(req, res, next, id) {
 });
 
 router.get('/polls/:poll', function(req, res) {
-  var ipAddr = req.headers["x-forwarded-for"].split(",")[0];
+  var ipAddr = v4();
   var localId = v4();
   // if (ipAddr){
   //   var list = ipAddr.split(",");
