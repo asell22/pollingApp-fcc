@@ -21,7 +21,9 @@ angular.module('voting')
     $scope.isAuthenticated = false;
   }
 
-  console.log('LocalId:', $scope.localId); 
+  console.log('poll:', poll);
+  console.log('greeting:', poll.greeting);
+  console.log('LocalId:', $scope.localId);
   console.log("Here's the IP address after the page loads", $scope.ip);
   console.log("Here's the username (will be IP address if user is unauthenticated)", $scope.user.username);
   // console.log("Is this user authenticated?:", $scope.isAuthenticated);
