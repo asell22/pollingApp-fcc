@@ -1,14 +1,10 @@
 angular.module('voting')
 .controller('pollCtrl', function($scope, polls, poll) {
-  $scope.something = poll.something
+  $scope.ip = poll.ip
   $scope.poll = poll.poll;
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
   $scope.hasVoted;
-  $scope.localId = poll.localId;
-
-
-
   if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
     $scope.hasVoted = true;
   } else {
@@ -17,14 +13,11 @@ angular.module('voting')
   $scope.another = '';
 
 
-  if ($scope.user.username === $scope.something) {
+  if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
   }
 
-  console.log('poll:', poll);
-  console.log('greeting:', poll.greeting);
-  console.log('LocalId:', $scope.localId);
-  console.log("Here's the IP address after the page loads", $scope.something);
+  console.log("Here's the IP address after the page loads", $scope.ip);
   console.log("Here's the username (will be IP address if user is unauthenticated)", $scope.user.username);
   // console.log("Is this user authenticated?:", $scope.isAuthenticated);
   // console.log("Has the user voted?:", $scope.hasVoted);
@@ -67,7 +60,7 @@ angular.module('voting')
   }
 
   $scope.increment = function(option) {
-    console.log("Here's the IP address after the user votes", $scope.something);
+    console.log("Here's the IP address after the user votes", $scope.ip);
     console.log("This should be stored in $scope.poll.users array. Refresh the page and see what was actually stored in $scope.poll.users");
     $scope.hasVoted = true;
     if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
