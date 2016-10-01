@@ -5,7 +5,7 @@ angular.module('voting')
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
   $scope.hasVoted;
-  if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== null) {
+  if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== undefined) {
     $scope.hasVoted = true;
   } else {
     $scope.hasVoted = false;
@@ -63,7 +63,7 @@ angular.module('voting')
     console.log("Here's the IP address after the user votes", $scope.ip);
     console.log("This should be stored in $scope.poll.users array. Refresh the page and see what was actually stored in $scope.poll.users");
     $scope.hasVoted = true;
-    if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== null) {
+    if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== undefined) {
       alert("You already voted on this poll!");
     } else {
       if (localStorage.getItem('id') !== null) {
