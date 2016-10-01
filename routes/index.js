@@ -83,7 +83,7 @@ router.param('poll', function(req, res, next, id) {
 
 router.get('/polls/:poll', function(req, res) {
   var ipAddr = v4();
-  var localId = v4();
+  // var localId = v4();
   // if (ipAddr){
   //   var list = ipAddr.split(",");
   //   ipAddr = list[list.length-1];
@@ -97,7 +97,7 @@ router.get('/polls/:poll', function(req, res) {
   } else {
     var user = {twitterId: 'null', username: ipAddr, displayName: 'null'};
   }
-  res.json({poll: req.poll, user: user, ip: ipAddr, localId: localId});
+  res.json({poll: req.poll, user: user, ip: ipAddr, localId: v4()});
 });
 
 router.delete('/polls/:poll', function(req, res) {
