@@ -1,11 +1,15 @@
 angular.module('voting')
 .controller('pollCtrl', function($scope, polls, poll) {
-  $scope.randomId = poll.randomId;
+  $scope.ip = poll.ip
   $scope.poll = poll.poll;
   $scope.user = poll.user;
   $scope.isAuthenticated = true;
   $scope.hasVoted;
-  if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== undefined) {
+  $scope.localId = poll.localId;
+
+  console.log('LocalId:', $scope.localId); 
+
+  if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
     $scope.hasVoted = true;
   } else {
     $scope.hasVoted = false;
@@ -13,11 +17,11 @@ angular.module('voting')
   $scope.another = '';
 
 
-  if ($scope.user.username === $scope.randomId) {
+  if ($scope.user.username === $scope.ip) {
     $scope.isAuthenticated = false;
   }
 
-  console.log("Here's the IP address after the page loads", $scope.randomId);
+  console.log("Here's the IP address after the page loads", $scope.ip);
   console.log("Here's the username (will be IP address if user is unauthenticated)", $scope.user.username);
   // console.log("Is this user authenticated?:", $scope.isAuthenticated);
   // console.log("Has the user voted?:", $scope.hasVoted);
@@ -63,24 +67,15 @@ angular.module('voting')
     console.log("Here's the IP address after the user votes", $scope.ip);
     console.log("This should be stored in $scope.poll.users array. Refresh the page and see what was actually stored in $scope.poll.users");
     $scope.hasVoted = true;
-    if ($scope.poll.users.indexOf($scope.user.username) !== -1 || localStorage.getItem('id') !== undefined) {
+    if ($scope.poll.users.indexOf($scope.user.username) !== -1) {
       alert("You already voted on this poll!");
     } else {
-      if (localStorage.getItem('id') !== null) {
-        $scope.poll.users.push($scope.user.username);
-        var data = $scope.chartConfig.series[0].data;
-        var index = this.$index;
-        data[index][1]++;
-        option.totalVotes++;
-        polls.vote($scope.poll._id, index);
-      } else {
-        localStorage.setItem('id', $scope.randomId);
-        var data = $scope.chartConfig.series[0].data;
-        var index = this.$index;
-        data[index][1]++;
-        option.totalVotes++;
-        polls.vote($scope.poll._id, index);
-      }
+      $scope.poll.users.push($scope.user.username);
+      var data = $scope.chartConfig.series[0].data;
+      var index = this.$index;
+      data[index][1]++;
+      option.totalVotes++;
+      polls.vote($scope.poll._id, index);
     }
   }
 
