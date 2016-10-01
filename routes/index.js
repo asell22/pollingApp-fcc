@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Poll = require('../models/poll');
 var passport = require('passport');
+var v4 = require('node-uuid').v4;
 require('../config/passport')(passport);
 
 /* GET home page. */
@@ -82,6 +83,8 @@ router.param('poll', function(req, res, next, id) {
 
 router.get('/polls/:poll', function(req, res) {
   var ipAddr = req.headers["x-forwarded-for"].split(",")[0];
+  var randomId = v4()
+  var
   // if (ipAddr){
   //   var list = ipAddr.split(",");
   //   ipAddr = list[list.length-1];
@@ -93,9 +96,9 @@ router.get('/polls/:poll', function(req, res) {
   if (req.user) {
     var user = req.user;
   } else {
-    var user = {twitterId: 'null', username: ipAddr, displayName: 'null'};
+    var user = {twitterId: 'null', username: randomId, displayName: 'null'};
   }
-  res.json({poll: req.poll, user: user, ip: ipAddr});
+  res.json({poll: req.poll, user: user, randomId: randomId});
 });
 
 router.delete('/polls/:poll', function(req, res) {
